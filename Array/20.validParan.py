@@ -40,7 +40,7 @@ def isValid(s):
     open = ['(', '{', '[']
     stack=[]
     if len(s)%2 !=0:
-        return False``
+        return False
     for c in s:
         if c in open:
             stack.append(c)
