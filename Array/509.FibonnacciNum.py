@@ -25,15 +25,23 @@ Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
 '''
 
 def fib (n):
-    stack = []
-    for i in range(n+1):
-        stack = []
-        for i in range(n+1):
-            if i<=1:
-                stack.append(i)
-            elif i>1:
-                stack.append(stack[-1]+stack[-2])
-        return stack[-1]
+    # stack = []
+    # for i in range(n+1):
+    #     stack = []
+    #     for i in range(n+1):
+    #         if i<=1:
+    #             stack.append(i)
+    #         elif i>1:
+    #             stack.append(stack[-1]+stack[-2])
+    #     return stack[-1]
+
+    # Base case: n = 0 or 1
+    if n <= 1:
+        return n
+
+    # Recursive case: fib(n) = fib(n - 1) + fib(n - 2)
+    print(fib(n - 1) + fib(n - 2))
+    return fib(n - 1) + fib(n - 2)
 
 fib (4)
-O(n)
+
