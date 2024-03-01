@@ -45,7 +45,7 @@ class Solution:
         # if leave and no stack touch -> dequeue and enqueue
         # till student [i] ! = sandwich[j]
 
-        #  TOP OF STACK MEANS FIRST ELEMENT OF STACK
+        #  In this question: TOP OF STACK MEANS FIRST ELEMENT OF STACK
         while students and sandwiches:
             print(f"studnet original:{students} and sandwich stack original: {sandwiches}")
             if students[0] != sandwiches[0]:
