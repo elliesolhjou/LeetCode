@@ -26,3 +26,27 @@ Constraints:
 
 1 <= n <= 45
 '''
+# Recursive Approach
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n<=2:
+            return n
+        return self.climbStairs(n-1)+self.climbStairs(n-2)
+    
+
+# Non Recursive Approach
+# class Solution:
+#     def climbStairs(self, n: int) -> int:
+#         stack=[]
+#         for i in range(n+1):
+#             if i<=2:
+#                 stack.append(i)
+#                 print("i is ", i, stack)
+#             else:
+#                 stack.append(stack[-1]+stack[-2])
+#         return stack[-1]
+
+sol = Solution()
+result = sol.climbStairs(5)
+print(result)
+
