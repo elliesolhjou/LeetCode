@@ -4,6 +4,9 @@ Given the root of a binary tree and an integer targetSum, return true if the tre
 A leaf is a node with no children.
 '''
 from collections import deque
+# from collections import queue
+
+
 
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
@@ -12,32 +15,64 @@ class TreeNode(object):
         self.right = right
 
 def arrayToTree(arr):
-    if not root:
-        return False
-    TreeNode
-def leafPath(root, path=[]):
-    TreeNode(root)
+    if not arr:
+        return None
+    roots = TreeNode(arr[0])
+    # print(roots)
+    # print([roots])
+    queue = deque([roots])
+    print(queue)
+    print(arr)
+
+    i = 1
+    while i<len(arr):
+        # grab first treenode
+        current = queue.popleft()
+        # current is first pointer to traverse our tree
+        # i is second pointer to traverse our input array
+        if arr[i]:
+            current.left = TreeNode(arr[i])
+            queue.append(current.left)
+        i+=1
+        
+        if arr[i]:
+            current.right = TreeNode(arr[i])
+            queue.append(current.right)
+        i+=1
+
+    return roots
+
+def leafPath(root, path=[], paths=[]):
+
     # define base case
     if not root:
-        return False
+        return 
     # there is value to node
     path.append(root.val)
+    print(f" this is path {path}")
 
-    # check if we reached to leaf (DFS)
+    # check if we reached to leaf (DFS) then add it to one of the path of paths
     if not root.left and not root.right:
-        return True
-    # direct pointer and recursive call to left sub trees
-    if leafPath(root.left, path):
-        return True
-    if leafPath(root.right, path):
-        return True
+        # creating list of arrays within an array
+        paths.append(list(path))
+        print(paths)
+    else:
+        # direct pointer and recursive call to left sub trees
+        leafPath(root.left, path)
+        leafPath(root.right, path)
+
     
-    path.pop()
-    return False
+    # Backtrack by removing the current node's value
+    # path.pop()
 
 
 
 
 
-root = [5,4,8,11,null,13,4,7,2,null,null,null,1]
+
+# a = [5,4,8,11,None, 13,4,7,2,1]
+a = [5,4,8,11,None,13,4,7,2,None,None,None,1]
+root = arrayToTree(a)
+paths=[]
 leafPath(root)
+print(paths)
