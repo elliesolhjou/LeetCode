@@ -76,3 +76,9 @@ root = arrayToTree(a)
 paths=[]
 leafPath(root)
 print(paths)
+
+
+
+
+
+
