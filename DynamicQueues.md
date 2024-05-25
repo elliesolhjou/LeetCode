@@ -16,3 +16,10 @@
     • Starting from front until count           
 2. Point to the new array
 3. Set front to 0
+
+
+![alt text](image-12.png)
+![alt text](image-13.png)
+
+***BIG O***         
+![alt text](image-14.png)
