@@ -12,3 +12,15 @@ wraps around back to zero
 the array
 
 ![alt text](image-8.png)
+
+Append Algorithm
+1. If count >= capacity then set index to 0 (or count mod
+capacity)
+2. Set array[index] to value
+3. Increment count
+• Need to consider front variable for circular queue
+
+
+![alt text](image-9.png)
+![alt text](image-10.png)
+![alt text](image-11.png)
