@@ -38,28 +38,36 @@ to a recursive algorithm
 • Shorter code
 • Easier to understand
 
-**What is a Call Stack?**
-• Memory location where data in function calls (stack frames) are placed
-• Uses a stack as a data structure
-• Only the last stack frame is active at a time
 
-Stack Frame
-• Contents:
-• function parameters
-• local variables
-• return address
-• The top of the call stack is the active frame
+***Tail Recursion***    
+What is Tail Recursion? 
+• A special form of recursion   
+• Also called bottom-up - begin with the base case and then
+build up to larger problems 
+• Does not perform any additional computation after
+recursive call  
+• Still restricted by call stack limits 
 
-![alt text](image-19.png)
+__Tail Recursion Advantage__
+• Stores results as accumulator arguments
+• Does not need to preserve the stack frame
+• Uses O(1) vs O(n) space in the call stack
+• Optimized by most compilers (tail recursion elimination)
+• Results in much faster execution
+• Python does not have Tail Call/Recursion Optimization
 
-![alt text](image-20.png)
-![alt text](image-21.png)
 
-Each function call adds to the call stack  
-• Data is added to the call stack even if function does not
-explicitly create new data  
-• Stack overflow occurs when call stack does not have
-enough space or reaches the call stack limit  
-• Usually caused by a function not reaching the base case
+Compared to Naïve Recursion
+• Can be harder to write
+• Uses extra parameters for calculation (accumulators)
+• No need to calculate return values
+• Returns accumulator value at the end
 
-![alt text](image-22.png)
+__Naïve Recursion to Tail Recursion Conversion__
+• Add accumulator parameter(s)
+• Return accumulator in base case
+• Include accumulator in recursive call
+• perform any necessary calculations to the accumulator
+
+
+![alt text](image-23.png)
