@@ -247,7 +247,7 @@ def search(arr, target):
     # helper function bc we don't ask for low and high from people
     return (recursiveBinarySearch(arr, target, 0, len(arr)-1))
 
-print(search([1,2,4,5,6],17))
+print(search([1,2,4,5,6, 17],17))
                                                      
 
 
