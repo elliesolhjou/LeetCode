@@ -27,7 +27,7 @@ Deques
 # card from either the top or bottom of the deck. A programming example of a deque 
 # is a playlist application, where you can add songs to either the beginning or end 
 # of the playlist and also remove them from either end, providing a flexible way to manage the playlist.
-
+# -------------------------------------------------------------------------------------------------------------#
 from dsa import pretty_print
 '''
 2. (25 points) Write a function that returns a Boolean as to whether a 
@@ -95,7 +95,7 @@ print(balancedBrackets("[{()}]"))
 # print(balancedBrackets("[{()}]"))
 print(balancedBrackets("(()[()({})]]])"))
 
-
+# for practice
 def balancedBrackets(str):
     # in balanced brackets, the closing bracket should match
     # the nearest opening brackets
@@ -124,5 +124,141 @@ def balancedBrackets(str):
     else:
         return False
     
+# -------------------------------------------------------------------------------------------------------------#
+'''
+3. (35 points) Fully implement the Deque data structure (you may choose either a static or dynamic implementation) using an array.  Do not use any built-in methods except for the index operator. Also, do not simply write a wrapper to the built-in Deque class.
+It should have the following methods:
+append_left(element)
+append_right(element)
+pop_left()
+pop_right()
+peek_left()
+peek_right()
+get_count()
+It may also be helpful to implement a print method to display the contents of the deque in the correct order.
+Make sure to test your code, especially for tricky situations.
+'''
+from dsa import pretty_print
+from dsa import queue
 
+class Deque:
+    def __init__(self):
+        # define array
+        self.items=[]
+        # create size (count of index)
+        self.size = 0
+    def append_left(self, element):
+        # create new array with new size (adding one element every time appending = increasing size) in cpu
+        new_items = [None] * (self.size+1)
+        # assign first left cell to the element
+        new_items[0] = element
+        # Copy the existing elements to the new array, starting from index 1
+        # shifting rest of previous elements to right
+        for i in range(1, self.size+1):
+            new_items[i] = self.items[i-1]
+        self.items = new_items
+        self.size +=1
+    def append_right(self, element):
+        # growing array -> creating new array with new size
+        new_items = [None] * (self.size+1)
+        # assign last cell of array on right to element
+        new_items[self.size] = element
+        # Copy the existing elements to the new array, starting from index 0
+        for i in range(self.size+1):
+            new_items[i] = self.items[i]
+        self.items= new_items
+        self.size+=1
     
+    # pop return element
+    def pop_left(self): 
+        # if queue is empty raise an error
+        if not self.size == 0:
+            raise IndexError("empty queue")
+        # grab value of popped element
+        element = self.items[0]
+        # create new array with new size
+        new_items= [None] * (self.size-1)
+        # shift elements to right
+        for i in range(1, self.size-1):
+            new_items[i-1] = self.items[i]
+        self.items = new_items
+        self.size -=1
+        return element
+
+    def pop_right(self):
+        # return value
+        # if queue is empty
+        if self.size == 0:
+            raise IndexError("empty stack")
+        # grab return value
+        element = self.items[self.size-1]
+        # create new array
+        new_items = [None]* (self.size-1)
+        # copy old array elements to new array
+        for i in range(self.size-1):
+            new_items[i] = self.items[i]
+        
+        new_items = self.items
+        self.size -=1
+        return element
+
+    def peek_left(self):
+        # return value
+        # check size
+        if self.size == 0:
+            raise IndexError ("empty queue")
+        element = self.items[0]
+        return element
+    
+    def peek_right(self):
+        if self.size == 0:
+            raise IndexError ("empty queue")
+        return self.items[self.size-1]
+
+    def get_count(self):
+        return self.size
+    
+    def __str__(self):
+        return str(self.items[:self.size])
+    
+
+# -------------------------------------------------------------------------------------------------------------#
+'''4. (25 points) Write a recursive binary search function to search for an element in an array. Assume the elements in the array are sorted.
+It should return the index of the element and return -1 if it is not found.'''
+
+# define base case
+# define recursive call
+# binary search is L, R mid
+
+def recursiveBinarySearch(arr, target, low, high):
+    # define base case
+    if low>high:
+        return -1
+    mid = (low+high)//2
+    if arr[mid] == target:
+        return mid
+    # start binary search
+    elif target > arr[mid]:
+        return recursiveBinarySearch(arr, target, mid+1, high)
+    else:
+        return recursiveBinarySearch(arr, target, low, mid-1)
+
+def search(arr, target):
+    # helper function bc we don't ask for low and high from people
+    return (recursiveBinarySearch(arr, target, 0, len(arr)-1))
+
+print(search([1,2,4,5,6],17))
+                                                     
+
+
+
+
+
+
+
+
+
+
+
+
+# -------------------------------------------------------------------------------------------------------------#
