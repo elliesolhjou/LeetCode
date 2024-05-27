@@ -4,7 +4,7 @@
 class Node:
     def __init__(self, val, next=None):
         self.value = val
-        self.next= None
+        self.next= next
 
 listNode1 = Node(4)
 listNode2 = Node(5)
@@ -98,3 +98,26 @@ def reverse_linkedlist(llist):
         
 reverse_linkedlist(llist)
 print_iter(llist)
+
+
+
+
+
+
+def linkListMaker(arr):
+    if not arr:
+        return None
+    head = Node(arr[0])
+    # pointer
+    current = head
+    for val in arr:
+        # create node
+        current.next = Node(val)
+        # move pointer
+        current = current.next
+    
+    return head
+
+
+
+print(linkListMaker([1,5,3,5,7,8]))

@@ -12,9 +12,9 @@ class Node:
         self.left = left
         self.right = right
 
-class Tree:
-    def __init__(self, root):
-        self.root = root
+# class Tree:
+#     def __init__(self, root):
+#         self.root = root
 
 root = Node(42)
 root.left = Node(23)
@@ -25,7 +25,7 @@ root.right = Node(55)
 root.right.left= Node(45)
 
 
-tree = Tree(root)
+# tree = Tree(root)
 
 
 
