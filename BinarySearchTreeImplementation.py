@@ -25,7 +25,30 @@ class TreeNode:
             root.right = self.delete(root.right, value)
         elif value< root.value:
             root.left = self.delete(root.left, value)
-        # else:
+        #  the deletion will return the value/ node of new node replacing 
+        #  the deleted node
+        else:
+            # simple case
+            #  if it has 1 child it would fill the deleted root value place - lifted up
+            #  we check if it has either left or right child
+            if not root.right:
+                return root.left
+            elif not root.left:
+                return root.right
+            # hard case - deleted 2 child node 
+            else:
+                # it has two child so we have to fin minvalue of them and replace it
+                #  it is safe to replace with : 
+                # 1. min nodes on right side of entire tree (better bu not matter)
+                # or 2. largest value from left side of whole tree (BST satisfied in entire tree)
+                minNode = self.minValueNode(root.right)
+                #  we fill out the deleted node value now with minNode found right side
+                root.val = minNode.val
+                # then recursive delete call for subtrees under minNode 
+                # since it is moved and it is unordered
+                root.right = self.delete(root.right, minNode.val)
+            return root
+
 
         
     # FIND MIN VAL
