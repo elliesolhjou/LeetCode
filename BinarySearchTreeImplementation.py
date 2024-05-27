@@ -1,9 +1,17 @@
+class Tree:
+    def __init__(self, root):
+        self.root = root
+# ______________________________________________________________________________________
+#                                       CREATE NODE
+# _______________________________________________________________________________________
 class TreeNode:
     def __init__(self, value, left= None, right= None):
         self.value = value
         self.left = left
         self.right = right
-
+# ______________________________________________________________________________________
+#                                       INSERT NODE
+# _______________________________________________________________________________________
 
     # INSERTION
     def insert(self, root, value):
@@ -16,7 +24,9 @@ class TreeNode:
             root.left = self.insert (root.left, value)
         
         return root
-
+# ______________________________________________________________________________________
+#                                       DELETE A NODE
+# _______________________________________________________________________________________
     # DELETION A NODE - O(n)
     def delete(self, root, value):
         if not root:
@@ -49,7 +59,9 @@ class TreeNode:
                 root.right = self.delete(root.right, minNode.val)
             return root
 
-
+# ______________________________________________________________________________________
+#                                       FIND MIN VALUE
+# _______________________________________________________________________________________
         
     # FIND MIN VAL
     def minValueNode(self, root):
@@ -57,14 +69,26 @@ class TreeNode:
         while curr and curr.left:
             curr = curr.left
         return curr
-
+# ______________________________________________________________________________________
+#                                       FIND MAX VALUE
+# _______________________________________________________________________________________
     # FIND MAX VAL
     def maxValueNode(self, root):
         curr = root
         while curr and root.right:
             curr = curr.right
         return curr
-
+# ______________________________________________________________________________________
+#                                       FIND SUM OF ALL NODES
+# _______________________________________________________________________________________    
+    #  FIND SUM OF ALL NODES:
+    def findSum(self, root):
+        if root is None:
+            return 0
+        return root.value+self.findSum(root.left)+self.findSum(root.right)
+# ----------------------------------------------------------------------------------------
+#                                       SEARCH NODES
+# _______________________________________________________________________________________
     # SEARCH O(log n) time.
     def search(self, root,target):
         # no tree
@@ -76,7 +100,31 @@ class TreeNode:
             return self.search(root.left, target)
         else: 
             return True
+## ----------------------------------------------------------------------------------------
+#                                       VERIFY BST
+# _______________________________________________________________________________________
 
+def is_bst(node, left=float('-inf'), right=float('inf')):
+    # An empty tree is a valid BST
+    if not node:
+        return True
+
+    # Check if node val is greater than its left and lower than its right
+    if not (left < node.val < right):
+        return False
+
+    # Recursively check the left and right subtrees with updated ranges
+    return (is_bst(node.left, left, node.val) and
+            is_bst(node.right, node.val, right))
+
+
+
+
+
+
+# ----------------------------------------------------------------------------------------
+#                                      
+# _______________________________________________________________________________________
 arr = [1,4,3,7,4,9]
 # root = TreeNode(3)
 # print(root.value)
