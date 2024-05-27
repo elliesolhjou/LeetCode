@@ -25,10 +25,17 @@ Contains:
 • tail reference    
 • count 
  
-__Node Structure__  
+__Node Structure__  (is an object)
 Contains: 
 • value 
 • next reference    
 
 
+
 ![alt text](image-28.png)
+![alt text](image-30.png)
+![alt text](image-31.png)
+![alt text](image-32.png)
+![alt text](image-33.png)
+![alt text](image-34.png)
+![alt text](image-35.png)
