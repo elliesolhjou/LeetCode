@@ -40,9 +40,28 @@ def dfs_preorder(root):
 #                                      BST - BFS - O(N)
 # ========================================================================================================#
 '''
-    DFS <--> QUEUE
-
-
+    BFS <--> QUEUE
+    WHILE LOOP
 '''
 from collections import deque
-
+help(deque)
+def bfs(root):
+    queue = deque()
+    if root:
+        queue.append(root)
+    level = 0
+    visit=set()
+    while queue:
+        print(level)
+        for i in range(len(queue)):
+            current_pointer = queue.popleft()
+            # after popping node -> add its value to a place holder array/set would help a lot
+            visit.add(current_pointer.value)
+            if current_pointer.left:
+                # add to queue to go over on those in next iterations
+                queue.append(current_pointer.left)
+            if current_pointer.right:
+                queue.append(current_pointer.right)
+            
+        level+=1
+    return level
