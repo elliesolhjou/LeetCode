@@ -10,7 +10,7 @@ class TreeNode:
         self.left = left
         self.right = right
 # ========================================================================================================#
-#                                       INSERT NODE - O(N)
+#                                       INSERT NODE - O(LOG N)
 # ========================================================================================================#
 
     # INSERTION
@@ -26,9 +26,9 @@ class TreeNode:
         return root
 
 # ========================================================================================================#
-#                                        DELETE A NODE - O(N)
+#                                        DELETE A NODE - O(LOG N)
 # ========================================================================================================#
-    # DELETION A NODE - O(n)
+    # DELETION A NODE -
     def delete(self, root, value):
         if not root:
             return None
@@ -118,9 +118,28 @@ def is_bst(node, left=float('-inf'), right=float('inf')):
     # Recursively check the left and right subtrees with updated ranges
     return (is_bst(node.left, left, node.val) and
             is_bst(node.right, node.val, right))
+# ========================================================================================================#
+#                                       HEIGHT OF BST - O(N)
+# ========================================================================================================#
 
+def height(self, node):
+    if node is None:
+        return -1  # Returning -1 because height of an empty tree is -1
+    else:
+        # Compute the height of each subtree
+        left_height = self.height(node.left)
+        right_height = self.height(node.right)
 
+        # Use the larger one
+        return max(left_height, right_height) + 1
 
+# Assign root to the Tree
+tree = Tree()
+tree.root = root
+
+# Get the height of the tree
+tree_height = height(tree.root)
+print("Height of the tree:", tree_height)
 
 
 

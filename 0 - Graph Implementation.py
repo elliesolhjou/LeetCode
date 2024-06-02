@@ -1,9 +1,4 @@
 # ========================================================================================================#
-#                                      
-# ========================================================================================================#
-
-
-# ========================================================================================================#
 #                                      MATRIX GRAPH 
 # ========================================================================================================#
 '''
@@ -111,7 +106,7 @@ def bfs(grid):
     # 2- for any BFS queue is necessary -> tell us at which level we are at  
     queue = Deque()
     # 3- initiate queue with starting point (first node)
-    queue.append((0,0))
+    queue.append_right((0,0))
     # 4- add to visit to avoid duplicates
     visit.add((0,0))
     # 5- initiate length
@@ -120,7 +115,7 @@ def bfs(grid):
     while queue:
         for i in range(len(queue)):
             # 7- grab each cell to perform conditions, base case and edge cases
-            r,c = queue.popleft()
+            r,c = queue.pop_left()
             # 8- base case: check if we reached to destination
             if r==ROWS-1 and c==COLS-1:
                 return length
@@ -243,89 +238,95 @@ def bfs(node, target, adjList):
 
 
 
+# ========================================================================================================#
+#                                      ADJACENCY LIST - DFS - FIND PATH 
+# ========================================================================================================#
+'''1. Write a depth first search function that accepts
+a starting vertex and an ending vertex. 
+If the ending vertex is found, It should also 
+return the path of the search.
+'''
+
+def dfs(start, end, adjList, path = None, visit = None):
+    if path is None:
+        path = []
+    if visit is None:
+        visit = set()
     
-
-
-
-
-
-class Deque:
-    def __init__(self):
-        # define array
-        self.items=[]
-        # create size (count of index)
-        self.size = 0
-    def append_left(self, element):
-        # create new array with new size (adding one element every time appending = increasing size) in cpu
-        new_items = [None] * (self.size+1)
-        # assign first left cell to the element
-        new_items[0] = element
-        # Copy the existing elements to the new array, starting from index 1
-        # shifting rest of previous elements to right
-        for i in range(1, self.size+1):
-            new_items[i] = self.items[i-1]
-        self.items = new_items
-        self.size +=1
-    def append_right(self, element):
-        # growing array -> creating new array with new size
-        new_items = [None] * (self.size+1)
-        # assign last cell of array on right to element
-        new_items[self.size] = element
-        # Copy the existing elements to the new array, starting from index 0
-        for i in range(self.size+1):
-            new_items[i] = self.items[i]
-        self.items= new_items
-        self.size+=1
+    # base case
+    if start == end:
+        return path
     
-    # pop return element
-    def pop_left(self): 
-        # if queue is empty raise an error
-        if not self.size == 0:
-            raise IndexError("empty queue")
-        # grab value of popped element
-        element = self.items[0]
-        # create new array with new size
-        new_items= [None] * (self.size-1)
-        # shift elements to right
-        for i in range(1, self.size-1):
-            new_items[i-1] = self.items[i]
-        self.items = new_items
-        self.size -=1
-        return element
+    # start path
+    path.append(start)
+    # add visited Nodes
+    visit.add(start)
 
-    def pop_right(self):
-        # return value
-        # if queue is empty
-        if self.size == 0:
-            raise IndexError("empty stack")
-        # grab return value
-        element = self.items[self.size-1]
-        # create new array
-        new_items = [None]* (self.size-1)
-        # copy old array elements to new array
-        for i in range(self.size-1):
-            new_items[i] = self.items[i]
-        
-        new_items = self.items
-        self.size -=1
-        return element
+    # now start recursive call for visited node neighbors(connections)
+    for neighbor in adjList[start]:
+        if neighbor not in visit:
+            result = (dfs(neighbor, end, adjList, path.copy(), visit.copy()))
+            if result is not None:
+                return result
+    
+    return None
 
-    def peek_left(self):
-        # return value
-        # check size
-        if self.size == 0:
-            raise IndexError ("empty queue")
-        element = self.items[0]
-        return element
-    
-    def peek_right(self):
-        if self.size == 0:
-            raise IndexError ("empty queue")
-        return self.items[self.size-1]
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
 
-    def get_count(self):
-        return self.size
-    
-    def __str__(self):
-        return str(self.items[:self.size])
-    
+start_vertex = 'A'
+end_vertex = 'F'
+path = dfs(start_vertex, end_vertex, graph)
+# print("Path from", start_vertex, "to", end_vertex, ":", path)
+print(path)
+
+
+# ========================================================================================================#
+#                                      ADJACENCY MATRIX - BFS - FIND PATH 
+# ========================================================================================================#
+'''
+2. Implement a breadth first search function that accepts a starting 
+vertex and an ending vertex of a graph. This time, assume that the graph is 
+implemented using an adjacency matrix.
+'''
+from collections import deque
+
+def bfs(start, end, adj_matrix):
+    num_vertices = len(adj_matrix)
+    visited = [False] * num_vertices
+    queue = deque([(start, [start])])
+
+    while queue:
+        current, path = queue.popleft()
+        if current == end:
+            return path
+
+        visited[current] = True
+
+        for neighbor in range(num_vertices):
+            if adj_matrix[current][neighbor] == 1 and not visited[neighbor]:
+                queue.append((neighbor, path + [neighbor]))
+                visited[neighbor] = True
+
+    return None
+
+
+adj_matrix = [
+    [0, 1, 1, 0, 0, 0],
+    [1, 0, 0, 1, 1, 0],
+    [1, 0, 0, 0, 0, 1],
+    [0, 1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 1],
+    [0, 0, 1, 0, 1, 0]
+]
+
+start_vertex = 0  # Representing 'A'
+end_vertex = 5    # Representing 'F'
+path = bfs(start_vertex, end_vertex, adj_matrix)
+print("Path from", start_vertex, "to", end_vertex, ":", path)
